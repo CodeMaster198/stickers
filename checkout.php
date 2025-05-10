@@ -8,20 +8,20 @@ if (empty($_SESSION['cart'])) {
 }
 
 // Simuler une base de données de produits (identique à index.php)
-$products = [
-    'p1' => ['name' => "Men's Shirt", 'price' => 75, 'image' => 'images/p1.png'],
-    'p2' => ['name' => "Men's Shirt", 'price' => 80, 'image' => 'images/p2.png'],
-    'p3' => ['name' => "Women's Dress", 'price' => 68, 'image' => 'images/p3.png'],
-    'p4' => ['name' => "Women's Dress", 'price' => 70, 'image' => 'images/p4.png'],
-    'p5' => ['name' => "Women's Dress", 'price' => 75, 'image' => 'images/p5.png'],
-    'p6' => ['name' => "Women's Dress", 'price' => 58, 'image' => 'images/p6.png'],
-    'p7' => ['name' => "Women's Dress", 'price' => 80, 'image' => 'images/p7.png'],
-    'p8' => ['name' => "Men's Shirt", 'price' => 65, 'image' => 'images/p8.png'],
-    'p9' => ['name' => "Men's Shirt", 'price' => 65, 'image' => 'images/p9.png'],
-    'p10' => ['name' => "Men's Shirt", 'price' => 65, 'image' => 'images/p10.png'],
-    'p11' => ['name' => "Men's Shirt", 'price' => 65, 'image' => 'images/p11.png'],
-    'p12' => ['name' => "Women's Dress", 'price' => 65, 'image' => 'images/p12.png']
-];
+
+$products = [];
+$sql = "SELECT id, nom, prix, image FROM produits"; // Assure-toi que les noms des colonnes sont corrects
+
+$stmt = $pdo->query($sql); // utilise $pdo ici
+
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $products[$row['id']] = [
+        'name' => $row['nom'],
+        'price' => $row['prix'],
+        'image' => $row['image']
+    ];
+}
+
 
 // Calculer le total du panier
 $total = 0;
@@ -173,15 +173,15 @@ foreach ($_SESSION['cart'] as $id => $quantity) {
                                 <tr>
                                     <td><?php echo htmlspecialchars($product['name']); ?></td>
                                     <td><?php echo $quantity; ?></td>
-                                    <td>$<?php echo number_format($product['price'], 2); ?></td>
-                                    <td>$<?php echo number_format($subtotal, 2); ?></td>
+                                    <td><?php echo number_format($product['price'], 2); ?> DT</td>
+                                    <td><?php echo number_format($subtotal, 2); ?> DT</td>
                                 </tr>
                                 <?php endforeach; ?>
                             </tbody>
                             <tfoot>
                                 <tr>
                                     <th colspan="3" class="text-right">Subtotal</th>
-                                    <th>$<?php echo number_format($cart_total, 2); ?></th>
+                                    <th><?php echo number_format($cart_total, 2); ?> DT</th>
                                 </tr>
                                 <tr>
                                     <th colspan="3" class="text-right">Shipping</th>
@@ -189,7 +189,7 @@ foreach ($_SESSION['cart'] as $id => $quantity) {
                                 </tr>
                                 <tr>
                                     <th colspan="3" class="text-right">Total</th>
-                                    <th>$<?php echo number_format($cart_total+7.00, 2); ?></th>
+                                    <th><?php echo number_format($cart_total+7.00, 2); ?> DT</th>
                                 </tr>
                             </tfoot>
                         </table>

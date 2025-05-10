@@ -1,26 +1,27 @@
 <!DOCTYPE html>
 <html>
-   <head>
-      <!-- Basic -->
-      <meta charset="utf-8" />
-      <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-      <!-- Mobile Metas -->
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-      <!-- Site Metas -->
-      <meta name="keywords" content="" />
-      <meta name="description" content="" />
-      <meta name="author" content="" />
-      <link rel="shortcut icon" href="images/favicon.png" type="">
-      <title>Moustachio</title>
-      <!-- bootstrap core css -->
-      <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
-      <!-- font awesome style -->
-      <link href="css/font-awesome.min.css" rel="stylesheet" />
-      <!-- Custom styles for this template -->
-      <link href="css/style.css" rel="stylesheet" />
-      <!-- responsive style -->
-      <link href="css/responsive.css" rel="stylesheet" />
-   </head>
+   <?php require_once 'config.php'; ?>
+      <head>
+         <!-- Basic --> 
+         <meta charset="utf-8" />
+         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+         <!-- Mobile Metas -->
+         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+         <!-- Site Metas -->
+         <meta name="keywords" content="" />
+         <meta name="description" content="" />
+         <meta name="author" content="" />
+         <link rel="shortcut icon" href="images/favicon.png" type="">
+         <title>Moustachio</title>
+         <!-- bootstrap core css -->
+         <link rel="stylesheet" type="text/css" href="css/bootstrap.css" />
+         <!-- font awesome style -->
+         <link href="css/font-awesome.min.css" rel="stylesheet" />
+         <!-- Custom styles for this template -->
+         <link href="css/style.css" rel="stylesheet" />
+         <!-- responsive style -->
+         <link href="css/responsive.css" rel="stylesheet" />
+      </head>
    <style>
     .cart-count {
         position: absolute;
@@ -62,21 +63,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_to_cart'])) {
     exit();
 }
 
-// Simuler une base de données de produits
-$products = [
-    'p1' => ['name' => "Men's Shirt", 'price' => 0.800, 'image' => 'images/p1.png'],
-    'p2' => ['name' => "Men's Shirt", 'price' => 0.800, 'image' => 'images/p2.png'],
-    'p3' => ['name' => "Women's Dress", 'price' => 0.800, 'image' => 'images/p3.png'],
-    'p4' => ['name' => "Women's Dress", 'price' => 0.800, 'image' => 'images/p4.png'],
-    'p5' => ['name' => "Women's Dress", 'price' => 0.800, 'image' => 'images/p5.png'],
-    'p6' => ['name' => "Women's Dress", 'price' => 0.800, 'image' => 'images/p6.png'],
-    'p7' => ['name' => "Women's Dress", 'price' => 0.800, 'image' => 'images/p7.png'],
-    'p8' => ['name' => "Men's Shirt", 'price' => 0.800, 'image' => 'images/p8.png'],
-    'p9' => ['name' => "Men's Shirt", 'price' => 0.800, 'image' => 'images/p9.png'],
-    'p10' => ['name' => "Men's Shirt", 'price' => 0.800, 'image' => 'images/p10.png'],
-    'p11' => ['name' => "Men's Shirt", 'price' => 0.800, 'image' => 'images/p11.png'],
-    'p12' => ['name' => "Women's Dress", 'price' => 0.800, 'image' => 'images/p12.png']
-];
+
+$products = [];
+$sql = "SELECT id, nom, prix, image FROM produits"; // Assure-toi que les noms des colonnes sont corrects
+
+$stmt = $pdo->query($sql); // utilise $pdo ici
+
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $products[$row['id']] = [
+        'name' => $row['nom'],
+        'price' => $row['prix'],
+        'image' => $row['image']
+    ];
+}
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -240,68 +240,69 @@ $products = [
                </div>
             </div>
          </section>
+         <br>   <br>   <br>
+         <div class="heading_container heading_center" >
+                    <h2>Nos <span>Promos</span></h2>
+                </div>
         <!-- product section -->
-        <section class="why_section layout_padding">
+      <section class="why_section layout_padding">
          <div class="container">
-            <div class="heading_container heading_center">
-               
-            </div>
-            <div class="row" style="background-image: url('images/stickers.png'); background-size: cover; background-position: center;">
-               <div class="col-md-4">
-                  <div class="box ">
-                     <div class="img-box">
-                        
-                     </div>
-                     <div class="detail-box">
-                        <h5>
-                           Fast Delivery
-                        </h5>
-                        <p>
-                           variations of passages of Lorem Ipsum available
-                        </p>
-                     </div>
-                  </div>
+         <div class="heading_container heading_center">
+         </div>
+         <div class="row">
+            <div class="col-md-4">
+            <div class="box">
+               <h1>
+               <div class="img-box">
+               <a href="page100.php">
+                  <img src="images/100stickers.png" alt="100 Stickers Aléatoires" style="font-weight: 700; color: #f7444e;">
+                
+               </a>
                </div>
-               <div class="col-md-4">
-                  <div class="box ">
-                     <div class="img-box">
-                       
-                     </div>
-                     <div class="detail-box">
-                        <h5>
-                           Free Shiping
-                        </h5>
-                        <p>
-                           variations of passages of Lorem Ipsum available
-                        </p>
-                     </div>
-                  </div>
-               </div>
-               <div class="col-md-4">
-                  <div class="box ">
-                     <div class="img-box">
-                       
-                     </div>
-                     <div class="detail-box">
-                        <h5>
-                           Best Quality
-                        </h5>
-                        <p>
-                           variations of passages of Lorem Ipsum available
-                        </p>
-                     </div>
-                  </div>
+      </h1>
+               <div class="detail-box">
                </div>
             </div>
+            </div>
+            <div class="col-md-4">
+            <div class="box">
+            <h1>
+               <div class="img-box">
+               <a href="page250.php">
+                  <img src="images/250stickers.png" alt="250 Stickers Aléatoires"  style="font-weight: 700; color:#f7444e;">
+               </a>
+               </div>
+      </h1>
+            
+            </div>
+            </div>
+            <div class="col-md-4">
+            <div class="box">
+               <h1>
+               <div class="img-box">
+               <a href="page500.php">
+                  <img src="images/500stickers.png" alt="500 Stickers Aléatoires"  style="font-weight: 700; color:#f7444e;">
+               </a>
+               </div>
+      </h1>
+            
+            </div>
+            </div>
+         </div>
          </div>
       </section>
         <section class="product_section layout_padding">
             <div class="container">
                 <div class="heading_container heading_center">
-                    <h2>Our <span>products</span></h2>
+                    <h2>Produits <span>Populaires</span></h2>
                 </div>
                 <div class="row">
-                    <?php foreach ($products as $id => $product): ?>
+                <?php
+    $count = 0;
+    foreach ($products as $id => $product):
+        if ($count >= 6) break;
+        $count++;
+    ?>
                     <div class="col-sm-6 col-md-4 col-lg-4">
                         <div class="box">
                             <div class="option_container">
@@ -323,8 +324,12 @@ $products = [
                             </div>
                             <div class="detail-box">
                                 <h5><?php echo $product['name']; ?></h5>
-                                <h6>$<?php echo $product['price']; ?></h6>
-                            </div>
+                                <h6>
+  <?php echo $product['price']; ?> DT 
+  <span style="margin-left: 10px; color: grey;">
+    <del>1.200 DT</del>
+  </span>
+</h6>                            </div>
                         </div>
                     </div>
                     <?php endforeach; ?>
@@ -345,18 +350,16 @@ $products = [
          <div class="container">
             <div class="box">
                <div class="arrival_bg_box">
-                  <img src="images/arrival-bg.png" alt="">
                </div>
                <div class="row">
                   <div class="col-md-6 ml-auto">
                      <div class="heading_container remove_line_bt">
-                        <h2>
-                           #NewArrivals
+                        <h2 style="color:white">
+                           1000 CHOIX
                         </h2>
                      </div>
-                     <p style="margin-top: 20px;margin-bottom: 30px;">
-                        Vitae fugiat laboriosam officia perferendis provident aliquid voluptatibus dolorem, fugit ullam sit earum id eaque nisi hic? Tenetur commodi, nisi rem vel, ea eaque ab ipsa, autem similique ex unde!
-                     </p>
+                     <p style="margin-top: 20px;margin-bottom: 30px; color:white">
+                       On vous garantie choix de stickers avec une impression haute chaute qualité chez <b>moustachio</b> </p>
                      <a href="">
                      Shop Now
                      </a>
@@ -410,20 +413,28 @@ $products = [
                         <div class="img_container">
                            <div class="img-box">
                               <div class="img_box-inner">
-                                 <img src="images/client.jpg" alt="">
+                                 <img src="images/client3.jpeg" alt="">
                               </div>
                            </div>
                         </div>
                         <div class="detail-box">
                            <h5>
-                              Anna Trevor
+                              Maryem Hedhli
                            </h5>
                            <h6>
-                              Customer
+                              Client 
                            </h6>
                            <p>
-                              Dignissimos reprehenderit repellendus nobis error quibusdam? Atque animi sint unde quis reprehenderit, et, perspiciatis, debitis totam est deserunt eius officiis ipsum ducimus ad labore modi voluptatibus accusantium sapiente nam! Quaerat.
-                           </p>
+                             3ejbetni lqualité yesser tayara wlivraison rapide ya3tikom sa7a 
+    </p>
+    <div class="stars">
+                         <i class="fa fa-star" style="color: gold;"></i>
+                         <i class="fa fa-star" style="color: gold;"></i>
+                         <i class="fa fa-star" style="color: gold;"></i>
+                         <i class="fa fa-star" style="color: gold;"></i>
+                         <i class="fa fa-star" style="color: gold;"></i>
+                        </div>
+
                         </div>
                      </div>
                   </div>
@@ -432,20 +443,26 @@ $products = [
                         <div class="img_container">
                            <div class="img-box">
                               <div class="img_box-inner">
-                                 <img src="images/client.jpg" alt="">
+                                 <img src="images/enfant1.jpeg" alt="">
                               </div>
                            </div>
                         </div>
                         <div class="detail-box">
                            <h5>
-                              Anna Trevor
+                             Ahmed Khelifa
                            </h5>
                            <h6>
-                              Customer
+                              Client
                            </h6>
                            <p>
-                              Dignissimos reprehenderit repellendus nobis error quibusdam? Atque animi sint unde quis reprehenderit, et, perspiciatis, debitis totam est deserunt eius officiis ipsum ducimus ad labore modi voluptatibus accusantium sapiente nam! Quaerat.
-                           </p>
+                              qualité exceptionnelle !! </p>
+                              <div class="stars">
+                         <i class="fa fa-star" style="color: gold;"></i>
+                         <i class="fa fa-star" style="color: gold;"></i>
+                         <i class="fa fa-star" style="color: gold;"></i>
+                         <i class="fa fa-star" style="color: gold;"></i>
+                         <i class="fa fa-star" style="color: gold;"></i>
+                        </div>
                         </div>
                      </div>
                   </div>
@@ -454,21 +471,29 @@ $products = [
                         <div class="img_container">
                            <div class="img-box">
                               <div class="img_box-inner">
-                                 <img src="images/client.jpg" alt="">
+                                 <img src="images/client2.jpg" alt="">
                               </div>
                            </div>
                         </div>
                         <div class="detail-box">
                            <h5>
-                              Anna Trevor
+                              Ons Belkoudja
                            </h5>
                            <h6>
-                              Customer
+                              Client
                            </h6>
                            <p>
-                              Dignissimos reprehenderit repellendus nobis error quibusdam? Atque animi sint unde quis reprehenderit, et, perspiciatis, debitis totam est deserunt eius officiis ipsum ducimus ad labore modi voluptatibus accusantium sapiente nam! Quaerat.
+                              barcha choix haja yesser mezyena zidoulna fi chakira et merci
                            </p>
+                           <div class="stars">
+                         <i class="fa fa-star" style="color: gold;"></i>
+                         <i class="fa fa-star" style="color: gold;"></i>
+                         <i class="fa fa-star" style="color: gold;"></i>
+                         <i class="fa fa-star" style="color: gold;"></i>
+                         <i class="fa fa-star" style="color: gold;"></i>
                         </div>
+                        </div>
+                        
                      </div>
                   </div>
                </div>
@@ -496,9 +521,9 @@ $products = [
                         <a href="#"><img width="210" src="images/logo.png" alt="#" /></a>
                       </div>
                       <div class="information_f">
-                        <p><strong>ADDRESS:</strong> 28 White tower, Street Name New York City, USA</p>
-                        <p><strong>TELEPHONE:</strong> +91 987 654 3210</p>
-                        <p><strong>EMAIL:</strong> yourmain@gmail.com</p>
+                        <p><strong>ADDRESS:</strong> 21,Cité Bougatfa,Ezzahrouni;Tunis</p>
+                        <p><strong>TELEPHONE:</strong> +216 56 885 263</p>
+                        <p><strong>EMAIL:</strong> rochdi-dreams2@hotmail.fr</p>
                       </div>
                    </div>
                </div>
@@ -558,12 +583,7 @@ $products = [
          </div>
       </footer>
       <!-- footer end -->
-      <div class="cpy_">
-         <p class="mx-auto">© 2021 All Rights Reserved By <a href="https://html.design/">Free Html Templates</a><br>
-         
-            Distributed By <a href="https://themewagon.com/" target="_blank">ThemeWagon</a>
-         
-         </p>
+     
       </div>
       <!-- jQery -->
       <script src="js/jquery-3.4.1.min.js"></script>

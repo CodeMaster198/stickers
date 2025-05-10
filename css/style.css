@@ -316,7 +316,7 @@ a:focus {
 }
 
 .slider_section .img-box img {
-  width: 100%;
+  width: 200%;
 }
 
 .slider_section .carousel-indicators {
@@ -432,7 +432,29 @@ a:focus {
           transform: translateY(0);
 }
 .arrival_section {
-    background-color: #d4ced0;
+  background-image: url('../images/stickers.jpg'); /* Chemin vers votre image */
+  background-size: cover; /* Couvre toute la zone */
+  background-position: center; /* Centre l'image */
+  background-repeat: no-repeat; /* Empêche la répétition */
+  position: relative; /* Nécessaire pour le pseudo-élément */
+}
+
+/* Optionnel : Ajoutez un overlay sombre pour améliorer la lisibilité du texte */
+.arrival_section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3); /* Noir avec 30% d'opacité */
+  z-index: 1;
+}
+
+/* Assurez-vous que le contenu est au-dessus de l'overlay */
+.arrival_section .container {
+  position: relative;
+  z-index: 2;
 }
 .product_section .option_container {
   position: absolute;
@@ -576,17 +598,24 @@ a:focus {
 }
 
 .why_section .box {
-    text-align: center;
-    margin-top: 45px;
-    background-color: #002c3e;
-    padding: 45px 50px;
-    border-radius: 5px;
-    color: #ffffff;
+  text-align: center;
+  margin-top: 45px;
+  padding: 45px 50px;
+  border-radius: 5px;
+  color: #ffffff;
+  background-image: url('../images/stickes1.jpg'); /* Path to your image */
+  background-color: rgba(255, 255, 255, 0.506); /* Add a semi-transparent white overlay for less opacity */
+  background-blend-mode: lighten; /* Blend the image with the overlay */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 100 
+  ;
 }
 
-.detail-box h5 {
-    font-size: 21px;
+.detail-box h1  {
     font-weight: 700;
+    color: #8a0808;
 }
 
 .remove_line_bt h2::after {
@@ -1127,8 +1156,3 @@ form input[type="submit"]:focus {
     font-size: 15px;
     font-weight: 400;
 }
-
-http://kute-themes.com/html/boutique/html/index.html
-https://template.hasthemes.com/noraure/noraure/index.html
-https://preview.hasthemes.com/xoss-preview/xoss/index.html
-

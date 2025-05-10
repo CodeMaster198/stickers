@@ -1,4 +1,6 @@
 <?php
+    require_once 'config.php'; 
+
 session_start();
 
 // Initialisation du panier s'il n'existe pas
@@ -47,20 +49,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 }
 
 // Simuler une base de données de produits (identique à index.php)
-$products = [
-    'p1' => ['name' => "Men's Shirt", 'price' => 75, 'image' => 'images/p1.png'],
-    'p2' => ['name' => "Men's Shirt", 'price' => 80, 'image' => 'images/p2.png'],
-    'p3' => ['name' => "Women's Dress", 'price' => 68, 'image' => 'images/p3.png'],
-    'p4' => ['name' => "Women's Dress", 'price' => 70, 'image' => 'images/p4.png'],
-    'p5' => ['name' => "Women's Dress", 'price' => 75, 'image' => 'images/p5.png'],
-    'p6' => ['name' => "Women's Dress", 'price' => 58, 'image' => 'images/p6.png'],
-    'p7' => ['name' => "Women's Dress", 'price' => 80, 'image' => 'images/p7.png'],
-    'p8' => ['name' => "Men's Shirt", 'price' => 65, 'image' => 'images/p8.png'],
-    'p9' => ['name' => "Men's Shirt", 'price' => 65, 'image' => 'images/p9.png'],
-    'p10' => ['name' => "Men's Shirt", 'price' => 65, 'image' => 'images/p10.png'],
-    'p11' => ['name' => "Men's Shirt", 'price' => 65, 'image' => 'images/p11.png'],
-    'p12' => ['name' => "Women's Dress", 'price' => 65, 'image' => 'images/p12.png']
-];
+
+
+
+
+
+
+
+
+// Simuler une base de données de produits
+
+
+// Récupérer les produits depuis la base de données
+// Récupérer les produits depuis la base de données
+$products = [];
+$sql = "SELECT id, nom, prix, image FROM produits"; // Assure-toi que les noms des colonnes sont corrects
+
+$stmt = $pdo->query($sql); // utilise $pdo ici
+
+while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+    $products[$row['id']] = [
+        'name' => $row['nom'],
+        'price' => $row['prix'],
+        'image' => $row['image']
+    ];
+}
+
+
 ?>
 <!DOCTYPE html>
 <html>
@@ -223,7 +238,7 @@ $products = [
                                     <img src="<?php echo $product['image']; ?>" width="50" style="margin-right: 10px;">
                                     <?php echo $product['name']; ?>
                                 </td>
-                                <td>$<?php echo $product['price']; ?></td>
+                                <td><?php echo $product['price']; ?> DT</td>
                                 <td>
                                     <form method="post" action="" style="display:inline;">
                                         <input type="hidden" name="product_id" value="<?php echo $id; ?>">
@@ -231,7 +246,7 @@ $products = [
                                         <button type="submit" name="update_quantity" class="btn btn-sm btn-info">Update</button>
                                     </form>
                                 </td>
-                                <td>$<?php echo $subtotal; ?></td>
+                                <td><?php echo $subtotal; ?> DT</td>
                                 <td>
                                     <form method="post" action="" style="display:inline;">
                                         <input type="hidden" name="product_id" value="<?php echo $id; ?>">
@@ -244,7 +259,7 @@ $products = [
                         <tfoot>
                             <tr>
                                 <td colspan="3" class="text-right"><strong>Total:</strong></td>
-                                <td>$<?php echo $total; ?></td>
+                                <td><?php echo $total; ?> DT</td>
                                 <td></td>
                             </tr>
                         </tfoot>
